@@ -138,8 +138,8 @@ var ma = {
 
 (function() {
 
-    var TicTacToe = function(options) {
-        this.size = 3;
+    var FiveInRow = function(options) {
+        this.size = 15;
         this.crosses = this.noughts = 0;
         this.movesCached = this.indexMovesCached = null;
         options || (options = {});
@@ -148,23 +148,23 @@ var ma = {
         }
     };
 
-    TicTacToe.PATTERNS = [7, 56, 448, 73, 146, 292, 273, 84];
+    FiveInRow.PATTERNS = [7, 56, 448, 73, 146, 292, 273, 84];
 
-    TicTacToe.LETTERS = ['A', 'B', 'C'];
+    FiveInRow.LETTERS = ['A', 'B', 'C'];
 
-    TicTacToe.prototype = {
+    FiveInRow.prototype = {
 
-        constructor: TicTacToe,
+        constructor: FiveInRow,
 
         ///////////////////////////
-        // Mauler Game Interface //
+        // Lai Ngoc Bao Game Interface //
         ///////////////////////////
 
         copy: function() {
-            var tic = new TicTacToe();
-            tic.crosses = this.crosses;
-            tic.noughts = this.noughts;
-            return tic;
+            var fiveInRow = new FiveInRow();
+            fiveInRow.crosses = this.crosses;
+            fiveInRow.noughts = this.noughts;
+            return fiveInRow;
         },
 
         currentPlayer: function() {
@@ -205,16 +205,16 @@ var ma = {
                 this.movesCached = [];
                 var indexMove = this.indexMoves();
                 for (var i = 0; i < indexMove.length; i++) {
-                    var row = Math.floor(indexMove[i] / 3);
-                    var col = (indexMove[i] % 3) + 1;
-                    this.movesCached.push(TicTacToe.LETTERS[row] + col.toString());
+                    var row = Math.floor(indexMove[i] / 15);
+                    var col = (indexMove[i] % 15) + 1;
+                    this.movesCached.push(FiveInRow.LETTERS[row] + col.toString());
                 }
             }
             return this.movesCached;
         },
 
         newGame: function() {
-            return new TicTacToe();
+            return new FiveInRow();
         },
 
         numPlayers: function() {
@@ -257,7 +257,7 @@ var ma = {
                 } else {
                     builder += ' - ';
                 }
-                if (i % 3 === 2) {
+                if (i % 15 === 14) {
                     builder += '\n';
                 }
             }
@@ -265,7 +265,7 @@ var ma = {
         },
 
         //////////////////////////
-        // Tic Tac Toe specific //
+        // Five In Row specific //
         //////////////////////////
 
         bitCount: function(num) {
@@ -293,8 +293,8 @@ var ma = {
         },
 
         checkBitboardWin: function(board) {
-            for (var i = 0; i < TicTacToe.PATTERNS.length; i++) {
-                if ((board & TicTacToe.PATTERNS[i]) === TicTacToe.PATTERNS[i]) {
+            for (var i = 0; i < FiveInRow.PATTERNS.length; i++) {
+                if ((board & FiveInRow.PATTERNS[i]) === FiveInRow.PATTERNS[i]) {
                     return true;
                 }
             }
@@ -357,7 +357,7 @@ var ma = {
     };
 
     ma.games = ma.games || {};
-    ma.games.TicTacToe = TicTacToe;
+    ma.games.FiveInRow = FiveInRow;
 
 }());
 
@@ -932,9 +932,9 @@ ma.players.randomFunc = function(game) {
 
 (function() {
 
-    var TicTacToe = ma.games.TicTacToe;
+    var FiveInRow = ma.games.FiveInRow;
 
-    var TicTacToeCanvas = function(options) {
+    var FiveInRowCanvas = function(options) {
         this.model = options.model;
         this.canvas = options.canvas || document.createElement('canvas');
         this.canvas.width = options.width || 100;
@@ -956,13 +956,13 @@ ma.players.randomFunc = function(game) {
         this.render();
     };
 
-    TicTacToeCanvas.squareToMove = function(row, col) {
-        return TicTacToe.LETTERS[row] + (col + 1);
+    FiveInRowCanvas.squareToMove = function(row, col) {
+        return FiveInRow.LETTERS[row] + (col + 1);
     };
 
-    TicTacToeCanvas.prototype = {
+    FiveInRowCanvas.prototype = {
 
-        constructor: TicTacToeCanvas,
+        constructor: FiveInRowCanvas,
 
         render: function() {
             this.drawBackground();
@@ -1003,7 +1003,7 @@ ma.players.randomFunc = function(game) {
             for (var row = 0; row < this.model.size; row++) {
                 for (var col = 0; col < this.model.size; col++) {
                     var cellType = this.model.cell(row, col);
-                    var hello = TicTacToeCanvas.squareToMove(row, col);
+                    var hello = FiveInRowCanvas.squareToMove(row, col);
                     if (cellType === 'CROSS') {
                         this.drawCross(row, col, this.colors.cross);
                     } else if (cellType === 'NOUGHT') {
@@ -1088,19 +1088,19 @@ ma.players.randomFunc = function(game) {
 
         canvasLocationToMove: function(loc) {
             var square = this.coordToSquare(loc.x, loc.y);
-            return TicTacToeCanvas.squareToMove(square.row, square.col);
+            return FiveInRowCanvas.squareToMove(square.row, square.col);
         }
 
     };
 
     ma.views = ma.views || {};
-    ma.views.TicTacToeCanvas = TicTacToeCanvas;
+    ma.views.FiveInRowCanvas = FiveInRowCanvas;
 
 }());
 
 (function() {
 
-    var TicTacToeSVG = function(options) {
+    var FiveInRowSVG = function(options) {
         this.model = options.model;
         this.sideLength = options.sideLength;
         this.svg = options.svg || document.createElement("svg");
@@ -1119,11 +1119,11 @@ ma.players.randomFunc = function(game) {
         this.render();
     };
 
-    TicTacToeSVG.squareToMove = function(row, col) {
-        return ma.games.TicTacToe.LETTERS[row] + (col + 1);
+    FiveInRowSVG.squareToMove = function(row, col) {
+        return ma.games.FiveInRow.LETTERS[row] + (col + 1);
     };
 
-    TicTacToeSVG.prototype.render = function() {
+    FiveInRowSVG.prototype.render = function() {
         this.drawBackground();
         this.drawLines();
         this.drawBorder();
@@ -1131,7 +1131,7 @@ ma.players.randomFunc = function(game) {
         return this;
     };
 
-    TicTacToeSVG.prototype.drawBackground = function() {
+    FiveInRowSVG.prototype.drawBackground = function() {
         this.svg.append("rect")
             .attr({
                 "class": "bg",
@@ -1144,14 +1144,14 @@ ma.players.randomFunc = function(game) {
             });
     };
 
-    TicTacToeSVG.prototype.drawLines = function() {
+    FiveInRowSVG.prototype.drawLines = function() {
         for (var i = 1; i < this.model.size; i++) {
             this.drawVerticalLine(i);
             this.drawHorizontalLine(i);
         }
     };
 
-    TicTacToeSVG.prototype.drawBorder = function() {
+    FiveInRowSVG.prototype.drawBorder = function() {
         this.svg.append("rect")
             .attr({
                 "class": "border",
@@ -1165,27 +1165,27 @@ ma.players.randomFunc = function(game) {
             });
     };
 
-    TicTacToeSVG.prototype.drawHorizontalLine = function (row) {
+    FiveInRowSVG.prototype.drawHorizontalLine = function (row) {
         this.svg.append("line")
             .attr("x1", 0)
-            .attr("y1", (this.sideLength / 3) * row)
+            .attr("y1", (this.sideLength / 15) * row)
             .attr("x2", this.sideLength)
-            .attr("y2", (this.sideLength / 3) * row)
+            .attr("y2", (this.sideLength / 15) * row)
             .attr("stroke", this.colors.border)
             .attr("stroke-width", this.lineWidth);
     };
 
-    TicTacToeSVG.prototype.drawVerticalLine = function (col) {
+    FiveInRowSVG.prototype.drawVerticalLine = function (col) {
         this.svg.append("line")
-            .attr("x1", (this.sideLength / 3) * col)
+            .attr("x1", (this.sideLength / 15) * col)
             .attr("y1", 0)
-            .attr("x2", (this.sideLength / 3) * col)
+            .attr("x2", (this.sideLength / 15) * col)
             .attr("y2", this.sideLength)
             .attr("stroke", this.colors.border)
             .attr("stroke-width", this.lineWidth);
     };
 
-    TicTacToeSVG.prototype.drawSquares = function() {
+    FiveInRowSVG.prototype.drawSquares = function() {
         for (var row = 0; row < this.model.size; row++) {
             for (var col = 0; col < this.model.size; col++) {
                 var cellType = this.model.cell(row, col);
@@ -1198,8 +1198,8 @@ ma.players.randomFunc = function(game) {
         }
     };
 
-    TicTacToeSVG.prototype.drawCross = function (row, col, color) {
-        var scale = d3.scale.ordinal().domain([0, 1, 2]).rangeRoundBands([0, this.sideLength], 1, 0.5),
+    FiveInRowSVG.prototype.drawCross = function (row, col, color) {
+        var scale = d3.scale.ordinal().domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]).rangeRoundBands([0, this.sideLength], 1, 0.5),
             cellSize = this.sideLength / 11;
 
         this.svg.append("line")
@@ -1235,9 +1235,9 @@ ma.players.randomFunc = function(game) {
             .attr("stroke-width", this.sideLength / 30);
     };
 
-    TicTacToeSVG.prototype.drawCircle = function (row, col, color) {
+    FiveInRowSVG.prototype.drawCircle = function (row, col, color) {
 
-        var scale = d3.scale.ordinal().domain([0, 1, 2]).rangeRoundBands([0, this.sideLength], 1, 0.5);
+        var scale = d3.scale.ordinal().domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]).rangeRoundBands([0, this.sideLength], 1, 0.5);
 
         this.svg
             .append("circle")
@@ -1251,12 +1251,12 @@ ma.players.randomFunc = function(game) {
             .attr("fill", color);
     };
 
-    TicTacToeSVG.prototype.update = function(event, model) {
+    FiveInRowSVG.prototype.update = function(event, model) {
         this.model = model;
         this.render();
     };
 
     ma.views = ma.views || {};
-    ma.views.TicTacToeSVG = TicTacToeSVG;
+    ma.views.FiveInRowSVG = FiveInRowSVG;
 
 })();

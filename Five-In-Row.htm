@@ -2,20 +2,32 @@
 <meta charset="utf-8">
 <html>
 <head>
-    <title>Tic-Tac-Toe Game Tree</title>
+    <title>Five-In-Row Game Tree</title>
 </head>
 <body>
 <script src="http://www.davidrobles.net/js/visualizing-game-trees-with-d3/underscore.js"></script>
 <script src="http://www.davidrobles.net/js/visualizing-game-trees-with-d3/backbone.js"></script>
 <script src="http://www.davidrobles.net/js/visualizing-game-trees-with-d3/d3.js"></script>
-<script src="http://www.davidrobles.net/js/visualizing-game-trees-with-d3/mauler-0.0.4.js"></script>
+<script src="./File-In-Row.js"></script>
 
 <script>
 
-var ticTacToe = new ma.games.TicTacToe({
-    board: [['O', 'X', ' '],
-            ['O', 'X', ' '],
-            [' ', ' ', 'X']]
+var fiveInRow = new ma.games.TicTacToe({
+    board: [[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']]
 });
 
 var margin = { top: 50, right: 50, bottom: 50, left: 50 },
@@ -25,8 +37,8 @@ var margin = { top: 50, right: 50, bottom: 50, left: 50 },
     nodeMargin = nodeSize / 3.4;
     edgeWidth = 2;
 
-var svgView = new ma.views.TicTacToeSVG({
-    model: ticTacToe,
+var svgView = new ma.views.FiveInRowSVG({
+    model: fiveInRow,
     sideLength: nodeSize
 });
 
@@ -46,7 +58,7 @@ var depthFirstTreeGenerator = function(node) {
 
 var root = {
     name: "root",
-    game: ticTacToe
+    game: fiveInRow
 };
 
 depthFirstTreeGenerator(root);
