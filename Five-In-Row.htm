@@ -12,7 +12,7 @@
 
 <script>
 
-var fiveInRow = new ma.games.TicTacToe({
+var fiveInRow = new ma.games.FiveInRow({
     board: [[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -47,9 +47,9 @@ var depthFirstTreeGenerator = function(node) {
     if (moves.length > 0) {
         node.children = [];
         for (var i = 0; i < moves.length; i++) {
-            var newTic = node.game.copy();
-            newTic.move(i);
-            var newGameNode = { game: newTic };
+            var newFiveInRow = node.game.copy();
+            newFiveInRow.move(i);
+            var newGameNode = { game: newFiveInRow };
             node.children.push(newGameNode);
             depthFirstTreeGenerator(newGameNode);
         }
