@@ -19,7 +19,7 @@ var fiveInRow = new ma.games.FiveInRow({
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -43,17 +43,17 @@ var svgView = new ma.views.FiveInRowSVG({
 });
 
 var depthFirstTreeGenerator = function(node) {
-    var moves = node.game.moves();
-    if (moves.length > 0) {
-        node.children = [];
-        for (var i = 0; i < moves.length; i++) {
-            var newFiveInRow = node.game.copy();
-            newFiveInRow.move(i);
-            var newGameNode = { game: newFiveInRow };
-            node.children.push(newGameNode);
-            depthFirstTreeGenerator(newGameNode);
-        }
-    }
+    // var moves = node.game.moves();
+    // if (moves.length > 0) {
+    //     node.children = [];
+    //     for (var i = 0; i < moves.length; i++) {
+    //         var newFiveInRow = node.game.copy();
+    //         newFiveInRow.move(i);
+    //         var newGameNode = { game: newFiveInRow };
+    //         node.children.push(newGameNode);
+    //         depthFirstTreeGenerator(newGameNode);
+    //     }
+    // }
 };
 
 var root = {

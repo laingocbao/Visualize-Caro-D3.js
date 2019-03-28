@@ -1186,9 +1186,11 @@ ma.players.randomFunc = function(game) {
     };
 
     FiveInRowSVG.prototype.drawSquares = function() {
+        console.log(this.model.size);
         for (var row = 0; row < this.model.size; row++) {
             for (var col = 0; col < this.model.size; col++) {
                 var cellType = this.model.cell(row, col);
+                console.log(cellType);
                 if (cellType === 'CROSS') {
                     this.drawCross(row, col, this.colors.cross);
                 } else if (cellType === 'NOUGHT') {
