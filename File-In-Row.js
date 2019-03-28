@@ -1202,7 +1202,8 @@ ma.players.randomFunc = function(game) {
 
     FiveInRowSVG.prototype.drawCross = function (row, col, color) {
         var scale = d3.scale.ordinal().domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]).rangeRoundBands([0, this.sideLength], 1, 0.5),
-            cellSize = this.sideLength / 11;
+            cellSize = this.sideLength / 220;
+        // console.log("side length:  " + this.sideLength);
 
         this.svg.append("line")
             .attr("x1", function() {
@@ -1240,16 +1241,17 @@ ma.players.randomFunc = function(game) {
     FiveInRowSVG.prototype.drawCircle = function (row, col, color) {
 
         var scale = d3.scale.ordinal().domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]).rangeRoundBands([0, this.sideLength], 1, 0.5);
-
+        
         this.svg
             .append("circle")
             .attr("cx", function() {
+                console.log("col: " +  col + " Scale col: " + scale(col));
                 return scale(col);
             })
             .attr("cy", function() {
                 return scale(row);
             })
-            .attr("r", this.sideLength * 0.1)
+            .attr("r", this.sideLength * 0.02)
             .attr("fill", color);
     };
 
